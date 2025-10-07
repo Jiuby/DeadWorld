@@ -1,0 +1,69 @@
+/* ========= Home (solo estilos de la página de inicio) ========= */
+:root{
+  /* usa las mismas variables del header.css que ya se cargó antes */
+}
+
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  text-align:center;
+  padding:0 4% 80px 4%;
+  position:relative;
+
+  /* Desktop/tablet: imagen principal */
+  background-image:url('/static/img/banners/coverPC.jpg'); /* ajusta ruta según tu setup */
+  background-size:cover;
+  background-position:center;
+}
+
+.hero::before{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.65) 0%,
+    rgba(0,0,0,.35) 30%,
+    rgba(0,0,0,0) 65%
+  );
+}
+
+.hero-content{
+  position:relative; z-index:2;
+  color:#fff;
+  animation:fadeIn 1.2s ease-out both;
+}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  letter-spacing:.38em;
+  font-size:clamp(2.2rem, 8vw, 5rem);
+  margin-bottom:20px;
+}
+
+.cta-link{
+  display:inline-block;
+  font-weight:500;
+  letter-spacing:.18em;
+  font-size:1rem;
+  padding-bottom:6px;
+  border-bottom:2px solid #fff;
+  transition:letter-spacing .25s ease, opacity .25s ease;
+}
+.cta-link:hover{ letter-spacing:.28em; opacity:.95; }
+
+@keyframes fadeIn{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* Mobile: cambia imagen */
+@media (max-width: 768px){
+  .hero{
+    padding-bottom:64px;
+    background-image:url('/static/img/banners/coverCel.png');
+    background-position:center top;
+  }
+}

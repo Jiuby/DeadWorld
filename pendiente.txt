@@ -1,0 +1,2 @@
+hacerle logo
+partials de favorite cuando se añade alguna camisa a favorito, animacion

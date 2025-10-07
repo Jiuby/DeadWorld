@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeadWorld — Inicio</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS separado por área -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+  {% include 'partials/header.html' %}
+
+  <main>
+    <!-- Hero de la home -->
+    <section class="hero" aria-label="Sección destacada">
+      <div class="hero-content">
+        <h1>Colección Nightmare</h1>
+        <a href="#" class="cta-link" aria-label="Ver colección Nightmare">Ver ahora &rarr;</a>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

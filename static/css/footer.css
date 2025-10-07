@@ -1,0 +1,77 @@
+:root{
+  --footer-max: min(1420px, 92vw);
+  --footer-pad: clamp(18px, 3.2vw, 28px);
+  --footer-border: rgba(0,0,0,.6);
+  --footer-text: #111;
+  --footer-muted: #333;
+
+  /* usa las mismas fuentes y tracking del proyecto */
+  --font-ui:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --tracking-ui:.12em;
+}
+
+.site-footer{
+  background:#fff; /* si la página es blanca, se integra; ajusta si usas fondo oscuro */
+  color:var(--footer-text);
+  font-family:var(--font-ui);
+  letter-spacing:var(--tracking-ui);
+  text-transform:uppercase;
+}
+
+.footer__inner{
+  width:var(--footer-max);
+  margin:0 auto;
+  padding: var(--footer-pad) 0;
+}
+
+.footer__divider{
+  height:1px;
+  background: var(--footer-border);
+  opacity:.6;
+  margin-bottom: var(--footer-pad);
+}
+
+.footer__row{
+  display:flex;
+  align-items:center;
+  gap: clamp(16px, 3vw, 32px);
+  flex-wrap:wrap;
+}
+
+.footer__copy{
+  font-size:.8rem;
+  color:var(--footer-muted);
+  white-space:nowrap;
+}
+
+.footer__nav{
+  display:flex;
+  gap: clamp(14px, 2.4vw, 28px);
+  flex-wrap:wrap;
+}
+
+.footer__nav a{
+  font-size:.82rem;
+  color:var(--footer-text);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  padding-bottom:2px;
+  opacity:.85;
+  transition:opacity .2s ease, border-color .2s ease;
+}
+
+.footer__nav a:hover{
+  opacity:1;
+  border-bottom-color: var(--footer-text);
+}
+
+/* Responsive: apila en pantallas pequeñas */
+@media (max-width: 640px){
+  .footer__row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .footer__nav{
+    gap:14px;
+  }
+}

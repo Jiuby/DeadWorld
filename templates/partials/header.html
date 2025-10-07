@@ -1,0 +1,200 @@
+{% load static %}
+<!-- Header global + panel de menú (izq.) + drawer de carrito (der.) -->
+<header id="main-header" role="banner" aria-label="Cabecera principal">
+  <div class="header-container">
+
+    <!-- Izquierda: Menú (abre panel desde la IZQUIERDA) -->
+    <div class="header-left">
+      <button id="open-menu" class="menu__toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="offcanvas">
+        Menú
+      </button>
+    </div>
+
+    <!-- Centro: Logo -->
+    <div class="header-center">
+      <a href="/" class="logo" aria-label="Ir al inicio">D E A D&nbsp;W O R L D</a>
+    </div>
+
+    <!-- Derecha: Acciones -->
+    <div class="header-right header-actions" aria-label="Acciones de usuario">
+      <!-- Wishlist (corazón) — se oculta en móvil -->
+      <button id="open-wishlist" class="iconbtn icon--wishlist" aria-label="Wishlist" title="Wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.8 8.6c0 5.6-7.8 9.9-8.8 10.4-.1.1-.3.1-.5 0C10.6 18.5 2.8 14.2 2.8 8.6 2.8 6 4.9 4 7.4 4c1.5 0 2.9.7 3.8 1.9C12.1 4.7 13.5 4 15 4c2.5 0 4.6 2 4.6 4.6z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </button>
+
+      <!-- Cuenta (usuario) — se oculta en móvil -->
+      <button id="open-account" class="iconbtn icon--account" aria-label="Cuenta" title="Cuenta">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M5 19.2c1.6-3 4-4.6 7-4.6s5.3 1.6 7 4.6" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+        </svg>
+      </button>
+
+      <!-- Carrito (ícono, misma acción de abrir el drawer) — permanece visible en móvil -->
+      <button id="open-cart" class="iconbtn icon--cart" aria-label="Carrito" title="Carrito" aria-haspopup="dialog" aria-expanded="false" aria-controls="cartdrawer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="9" cy="20" r="1.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <circle cx="17" cy="20" r="1.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M3 4h2l2.6 10.2a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 2-1.6L21 7H6" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Offcanvas / Overlay Menú (IZQUIERDA) -->
+<div id="offcanvas" class="offcanvas" role="dialog" aria-modal="true" aria-label="Menú principal" aria-hidden="true">
+  <div class="offcanvas__backdrop" data-close></div>
+
+  <aside class="offcanvas__panel" role="document">
+    <div class="offcanvas__header">
+      <span class="offcanvas__title">Menú</span>
+      <button id="close-menu" class="offcanvas__close" aria-label="Cerrar menú" title="Cerrar">×</button>
+    </div>
+
+    <!-- Accesos rápidos (solo móvil): corazón y usuario dentro del menú -->
+    <div class="offcanvas__quick only-mobile" aria-label="Accesos rápidos">
+      <a href="#" class="quickbtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.8 8.6c0 5.6-7.8 9.9-8.8 10.4-.1.1-.3.1-.5 0C10.6 18.5 2.8 14.2 2.8 8.6 2.8 6 4.9 4 7.4 4c1.5 0 2.9.7 3.8 1.9C12.1 4.7 13.5 4 15 4c2.5 0 4.6 2 4.6 4.6z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        Wishlist
+      </a>
+      <a href="#" class="quickbtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M5 19.2c1.6-3 4-4.6 7-4.6s5.3 1.6 7 4.6" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+        </svg>
+        Cuenta
+      </a>
+    </div>
+
+    <nav class="offcanvas__nav">
+      <a href="#" class="offcanvas__item">TIENDA COMPLETA</a>
+
+      <details class="offcanvas__group">
+        <summary class="offcanvas__item offcanvas__summary">
+          COLECCIONES
+          <span class="offcanvas__plus" aria-hidden="true"></span>
+        </summary>
+        <div class="offcanvas__submenu">
+          <a href="#" class="offcanvas__subitem">Todas las colecciones</a>
+          <a href="#" class="offcanvas__subitem">Nightmare</a>
+        </div>
+      </details>
+
+      <details class="offcanvas__group">
+        <summary class="offcanvas__item offcanvas__summary">
+          CATEGORÍAS
+          <span class="offcanvas__plus" aria-hidden="true"></span>
+        </summary>
+        <div class="offcanvas__submenu">
+          <a href="#" class="offcanvas__subitem">Camisas</a>
+          <a href="#" class="offcanvas__subitem">Buzos</a>
+          <a href="#" class="offcanvas__subitem">Chaquetas</a>
+          <a href="#" class="offcanvas__subitem">Pantalones</a>
+          <a href="#" class="offcanvas__subitem">Accesorios</a>
+          <a href="#" class="offcanvas__subitem">Descuentos</a>
+        </div>
+      </details>
+
+      <a href="#" class="offcanvas__item">AYUDA</a>
+      <a href="#" class="offcanvas__item">CONTACTA CON NOSOTROS</a>
+      <a href="#" class="offcanvas__item">SOBRE NOSOTROS</a>
+    </nav>
+  </aside>
+</div>
+
+<!-- Cart Drawer (DERECHA) -->
+<div id="cartdrawer" class="cart" role="dialog" aria-modal="true" aria-label="Carrito" aria-hidden="true">
+  <div class="cart__backdrop" data-close></div>
+
+  <aside class="cart__panel" role="document">
+    <div class="cart__header">
+      <span class="cart__title">Carrito</span>
+      <button id="close-cart" class="cart__close" aria-label="Cerrar carrito" title="Cerrar">×</button>
+    </div>
+
+    <div class="cart__body">
+      <div class="cart__empty">
+        <div class="cart__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="9" cy="20" r="1.5"></circle>
+            <circle cx="17" cy="20" r="1.5"></circle>
+            <path d="M3 4h2l2.6 10.2a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 2-1.6L21 7H6"></path>
+          </svg>
+        </div>
+        <p class="cart__empty-title">Tu carro esta vacio</p>
+        <p class="cart__empty-sub">Explora la tienda y encuentra algo que te guste.</p>
+        <button class="cart__btn-ghost" data-close>Continuar explorando</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Script del header (abre/cierra menús) -->
+<script>
+  (function () {
+    const onScroll = () => {
+      document.body.classList.toggle('scrolled', window.scrollY > 12);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const body = document.body;
+    const off = document.getElementById('offcanvas');
+    const openMenuBtn = document.getElementById('open-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+
+    const cart = document.getElementById('cartdrawer');
+    const openCartBtn = document.getElementById('open-cart');
+    const closeCartBtn = document.getElementById('close-cart');
+
+    const openMenu = () => {
+      body.classList.add('menu-open');
+      off.setAttribute('aria-hidden', 'false');
+      openMenuBtn?.setAttribute('aria-expanded', 'true');
+      setTimeout(() => off.querySelector('.offcanvas__nav a, .offcanvas__nav summary')?.focus(), 80);
+    };
+    const closeMenu = () => {
+      body.classList.remove('menu-open');
+      off.setAttribute('aria-hidden', 'true');
+      openMenuBtn?.setAttribute('aria-expanded', 'false');
+      openMenuBtn?.focus();
+    };
+
+    const openCart = () => {
+      body.classList.add('cart-open');
+      cart.setAttribute('aria-hidden', 'false');
+      openCartBtn?.setAttribute('aria-expanded', 'true');
+      setTimeout(() => closeCartBtn?.focus(), 80);
+    };
+    const closeCart = () => {
+      body.classList.remove('cart-open');
+      cart.setAttribute('aria-hidden', 'true');
+      openCartBtn?.setAttribute('aria-expanded', 'false');
+      openCartBtn?.focus();
+    };
+
+    openMenuBtn?.addEventListener('click', () => { closeCart(); openMenu(); });
+    closeMenuBtn?.addEventListener('click', closeMenu);
+    off.addEventListener('click', (e) => {
+      if (e.target.matches('.offcanvas__backdrop,[data-close]')) closeMenu();
+    });
+
+    openCartBtn?.addEventListener('click', () => { closeMenu(); openCart(); });
+    closeCartBtn?.addEventListener('click', closeCart);
+    cart.addEventListener('click', (e) => {
+      if (e.target.matches('.cart__backdrop,[data-close]')) closeCart();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (body.classList.contains('menu-open')) closeMenu();
+        if (body.classList.contains('cart-open')) closeCart();
+      }
+    });
+  })();
+</script>

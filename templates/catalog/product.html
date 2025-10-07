@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ product.title|default:"Producto" }} — DeadWorld</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/product.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/recommendations.css' %}">
+  <!-- Toast (notificaciones wishlist) -->
+  <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+</head>
+<body class="page-product">
+
+  {% include 'partials/header.html' %}
+
+  <main class="pdp" aria-label="Producto">
+    <div class="pdp__wrap container">
+
+      <!-- IZQUIERDA: Info (sticky) -->
+      <section class="pdp__info" aria-labelledby="pdp-title">
+        <header class="pdp__head">
+          <h1 id="pdp-title" class="pdp__title">{{ product.title|default:"Camiseta Oversize" }}</h1>
+
+          <!-- Corazón (wishlist) -->
+          <button class="pdp__wish" aria-label="Agregar a favoritos" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.8 8.6c0 5.6-7.8 9.9-8.8 10.4-.1.1-.3.1-.5 0C10.6 18.5 2.8 14.2 2.8 8.6 2.8 6 4.9 4 7.4 4c1.5 0 2.9.7 3.8 1.9C12.1 4.7 13.5 4 15 4c2.5 0 4.6 2 4.6 4.6z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </button>
+        </header>
+
+        {% if product.subtitle %}<p class="pdp__subtitle">{{ product.subtitle }}</p>{% endif %}
+        <p class="pdp__price" data-price="{{ product.price|default:'120000' }}">COP $—</p>
+
+        <!-- Tallas -->
+        <div class="pdp__sizes">
+          <div class="pdp__sizes-head">
+            <span>Talla</span>
+            <a href="{{ product.size_guide_url|default:'#' }}" class="pdp__sizeguide">Guía de tallas</a>
+          </div>
+
+          <div class="sizegrid" role="group" aria-label="Seleccionar talla">
+            {% if sizes %}
+              {% for s in sizes %}
+                <button
+                  class="sizegrid__btn
+                         {% if not s.available %} is-disabled{% endif %}
+                         {% if selected_size == s.label %} is-active{% endif %}
+                         {% if s.label == '2XL' or s.label == '3XL' %} is-row2{% endif %}"
+                  {% if not s.available %}disabled{% endif %}
+                  {% if selected_size == s.label %}aria-pressed="true"{% endif %}>
+                  {{ s.label }}
+                </button>
+              {% endfor %}
+            {% else %}
+              <!-- Fallback demo -->
+              <button class="sizegrid__btn is-disabled" disabled>2XS</button>
+              <button class="sizegrid__btn">XS</button>
+              <button class="sizegrid__btn is-active" aria-pressed="true">S</button>
+              <button class="sizegrid__btn">M</button>
+              <button class="sizegrid__btn">L</button>
+              <button class="sizegrid__btn">XL</button>
+              <button class="sizegrid__btn is-row2">2XL</button>
+              <button class="sizegrid__btn is-row2">3XL</button>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="pdp__cta">
+          <form action="{{ add_to_cart_url|default:'#' }}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn--primary">AÑADIR AL CARRITO</button>
+          </form>
+        </div>
+
+        <!-- Detalles -->
+        <div class="pdp__details">
+          <ul>
+            {% if product.features %}
+              {% for bullet in product.features %}<li>{{ bullet }}</li>{% endfor %}
+            {% else %}
+              <li>Fit amplio con lavado efecto vintage</li>
+              <li>Desgastes a mano en cuello, puños y basta</li>
+              <li>Serigrafía en nuestro taller</li>
+              <li>Arte por <a href="#">Brando Chiesa</a></li>
+            {% endif %}
+          </ul>
+          <ul>
+            {% if product.specs %}
+              {% for spec in product.specs %}<li>{{ spec }}</li>{% endfor %}
+            {% else %}
+              <li>100% algodón</li>
+              <li>Lavar a 30°</li>
+            {% endif %}
+          </ul>
+        </div>
+      </section>
+
+      <!-- DERECHA: Galería (vertical en desktop, carrusel en móvil) -->
+      <section class="pdp__carousel">
+        <div class="pdp__gallery" aria-label="Galería del producto">
+          {% if images %}
+            {% for img in images %}
+              <figure class="slide"><img src="{{ img.src }}" alt="{{ img.alt|default:product.title }}"></figure>
+            {% endfor %}
+          {% else %}
+            <!-- Placeholders -->
+            <figure class="slide"><img src="{% static 'img/camisasProductos/CamisaTest1.png' %}" alt="{{ product.title }} vista 1"></figure>
+            <figure class="slide"><img src="{% static 'img/camisasProductos/CamisaTest2.png' %}" alt="{{ product.title }} vista 2"></figure>
+            <figure class="slide"><img src="{% static 'img/camisasProductos/CamisaTest5.png' %}" alt="{{ product.title }} vista 3"></figure>
+            <figure class="slide"><img src="{% static 'img/camisasProductos/CamisaTest4.png' %}" alt="{{ product.title }} vista 4"></figure>
+          {% endif %}
+        </div>
+
+        <!-- Controles SOLO móvil -->
+        <button class="carousel__btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel__btn next" aria-label="Siguiente">›</button>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section>
+
+    </div>
+  </main>
+
+  {% include 'partials/recommendations.html' with items=recommendations %}
+  {% include 'partials/footer.html' %}
+
+  <!-- Partial del toast (notificaciones) -->
+  {% include 'partials/toast.html' %}
+
+  <script>
+    // Header activo y compacto
+    document.body.classList.add('scrolled', 'pdp-header-compact');
+
+    // Formatear precio COP
+    (function(){
+      const el = document.querySelector('.pdp__price');
+      if(!el) return;
+      const raw = Number(el.getAttribute('data-price') || 0);
+      el.textContent = new Intl.NumberFormat('es-CO', {
+        style:'currency', currency:'COP', maximumFractionDigits:0
+      }).format(raw);
+    })();
+
+    // Animación de entrada
+    (function(){
+      const targets = document.querySelectorAll('.slide, .pdp__info');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('inview'); });
+      }, { threshold:.18 });
+      targets.forEach(t=>io.observe(t));
+    })();
+
+    // Carrusel SOLO móvil (<= 720px)
+    (function(){
+      const mq = window.matchMedia('(max-width: 720px)');
+      const gallery = document.querySelector('.pdp__gallery');
+      const prev = document.querySelector('.carousel__btn.prev');
+      const next = document.querySelector('.carousel__btn.next');
+      const dotsWrap = document.querySelector('.carousel__dots');
+      if (!gallery || !prev || !next || !dotsWrap) return;
+
+      function initCarousel(){
+        dotsWrap.innerHTML = '';
+        const slides = [...gallery.querySelectorAll('.slide')];
+        slides.forEach((_, i)=>{
+          const b = document.createElement('button');
+          b.className = 'dot';
+          b.setAttribute('aria-label', `Ir a la imagen ${i+1}`);
+          b.addEventListener('click', ()=> {
+            gallery.scrollTo({ left: i * gallery.clientWidth, behavior: 'smooth' });
+          });
+          dotsWrap.appendChild(b);
+        });
+
+        const updateDots = () => {
+          const i = Math.round(gallery.scrollLeft / gallery.clientWidth);
+          dotsWrap.querySelectorAll('.dot').forEach((d,k)=>{
+            d.classList.toggle('is-active', k === i);
+          });
+        };
+        updateDots();
+        gallery.addEventListener('scroll', () => window.requestAnimationFrame(updateDots));
+        prev.onclick = () => gallery.scrollBy({ left: -gallery.clientWidth, behavior: 'smooth' });
+        next.onclick = () => gallery.scrollBy({ left:  gallery.clientWidth, behavior: 'smooth' });
+      }
+
+      function destroyCarousel(){ dotsWrap.innerHTML = ''; }
+      function handle(m){ if (m.matches) initCarousel(); else destroyCarousel(); }
+      handle(mq); mq.addEventListener('change', handle);
+    })();
+
+    // Click en corazón -> mostrar toast
+    (function(){
+      const btn = document.querySelector('.pdp__wish');
+      if (!btn || !window.DWToast) return;
+
+      btn.addEventListener('click', () => {
+        const title = (document.getElementById('pdp-title')?.textContent || 'Producto').trim();
+        const size  = document.querySelector('.sizegrid__btn.is-active')?.textContent?.trim();
+        const meta  = size ? `Talla ${size} añadida a tu wishlist.` : 'Añadido a tu wishlist.';
+        const thumb = document.querySelector('.pdp__gallery img')?.getAttribute('src')
+                      || '{% static "img/camisasProductos/CamisaTest1.png" %}';
+        DWToast.show({ title, meta, image: thumb });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* ====== Contenedor y compensación del header fijo ====== */
+:root{
+  --container: min(1760px, 96vw);      /* un poco menos que 98vw para evitar desborde */
+  --grid-gap: clamp(18px, 2vw, 32px);
+
+  --font-ui:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-display:'Space Grotesk', ui-sans-serif, system-ui, Arial, sans-serif;
+
+  --text:#111;
+  --muted:#6a6a6a;
+}
+
+/* Bloquea el scroll horizontal */
+html, body{ overflow-x: hidden; }
+
+/* Evita que cualquier elemento rompa el ancho */
+.container{ width:var(--container); margin-inline:auto; max-width:100%; }
+
+/* Página blanca, margen superior para el header */
+.catalog{
+  background:#fff; color:#000;
+  text-transform:uppercase; letter-spacing:.12em;
+  padding-top:140px;   /* evita que se meta bajo el header */
+  padding-bottom:120px;
+}
+
+/* (sin cabecera) */
+.catalog__head{ display:none; }
+
+/* ====== Grid: 3 por fila ====== */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: var(--grid-gap);
+}
+@media (max-width: 1000px){
+  .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 560px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+/* ====== Product Card ====== */
+.pcard{ text-align:center; }
+
+.pcard__media{
+  position:relative; display:block; isolation:isolate;
+  aspect-ratio: 1 / 1;
+  min-height: clamp(480px, 34vw, 760px);
+  background:#fff;
+
+  /* Evita que el scale del hover provoque scroll horizontal */
+  overflow: hidden;
+}
+.pcard__media img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:contain;
+  padding: clamp(0px, 0.5vw, 8px);
+  transition: transform .35s ease;
+}
+.pcard__media:hover img{ transform: scale(1.03); }
+
+/* Corazón en hover (círculo blanco) */
+.pcard__wish{
+  position:absolute; z-index:2; top: clamp(10px, 1.8vw, 18px); left: clamp(10px, 1.8vw, 18px);
+  width:48px; height:48px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.95); color:#111; border:1px solid rgba(0,0,0,.12);
+  opacity:0; transform:translateY(-6px);
+  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+  cursor:pointer;
+}
+.pcard__wish svg{ width:24px; height:24px; }
+.pcard__media:hover .pcard__wish{ opacity:1; transform:translateY(0); }
+.pcard__wish:hover{ background:#fff; }
+
+/* Precio flotante centrado abajo en hover (único precio) */
+.pcard__price{
+  position:absolute; z-index:2; bottom: clamp(10px, 1.6vw, 18px);
+  left:50%; transform:translateX(-50%);
+  background:#111; color:#fff; font-size:.9rem; letter-spacing:.18em;
+  padding:12px 14px; border-radius:999px;
+  opacity:0; transition:opacity .25s ease, transform .25s ease;
+}
+.pcard__media:hover .pcard__price{ opacity:1; transform:translateX(-50%) translateY(-4px); }
+
+/* Título — sin precio base debajo */
+.pcard__title{
+  font-weight:700; font-size:1rem; letter-spacing:.16em;
+  margin-top:16px; margin-bottom:0;
+}
+.pcard__title a{ color:#111; text-decoration:none; }
+.pcard__title a:hover{ text-decoration:underline; }
+
+/* Oculta cualquier precio base residual */
+.pcard__price--base{ display:none !important; }
+
+/* Mantener gran tamaño también en tablet/móvil */
+@media (max-width: 1000px){
+  .pcard__media{ min-height: clamp(440px, 46vw, 720px); }
+}
+@media (max-width: 560px){
+  .pcard__media{ min-height: clamp(420px, 95vw, 700px); }
+}

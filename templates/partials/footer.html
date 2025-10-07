@@ -1,0 +1,18 @@
+{% load static %}
+<footer class="site-footer" role="contentinfo">
+  <div class="footer__inner">
+    <div class="footer__divider" aria-hidden="true"></div>
+
+    <div class="footer__row">
+      {% now "Y" as current_year %}
+      <span class="footer__copy">© DEAD WORLD {{ current_year }}</span>
+
+      <nav class="footer__nav" aria-label="Enlaces del pie">
+        <a href="#">Contacto</a>
+        <a href="#">Terminos y condiciones</a>
+        <a href="#">Politicas de envio</a>
+        <a href="#">Descuentos</a>
+      </nav>
+    </div>
+  </div>
+</footer>

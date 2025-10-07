@@ -1,0 +1,52 @@
+{# Toast / Notificaciones (arriba-izquierda). Incluye este partial una sola vez. #}
+<div id="dw-toast-root" class="dw-toast-root" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+/* Gestor de toasts con animaciones y autocierre a 7s
+   - ENTRADA: .is-visible (CSS)
+   - SALIDA:  .is-leaving (CSS). Se quita al animationend.
+   Uso: DWToast.show({ title, meta, image }) */
+(() => {
+  const root = document.getElementById('dw-toast-root');
+
+  function leave(el){
+    if(!el) return;
+    // Previene doble cierre
+    if (el.dataset.closing === '1') return;
+    el.dataset.closing = '1';
+    el.classList.add('is-leaving');
+    // Si hay animación, esperamos; si no, removemos tras un fallback corto
+    const fallback = setTimeout(() => el.remove(), 400);
+    el.addEventListener('animationend', () => { clearTimeout(fallback); el.remove(); }, { once:true });
+  }
+
+  function show({ title='Added to wishlist', meta='', image='' } = {}){
+    const item = document.createElement('div');
+    item.className = 'dw-toast';          // estado base (oculto)
+    item.setAttribute('role','status');
+
+    item.innerHTML = `
+      <button class="dw-toast__close" aria-label="Cerrar">×</button>
+      <div class="dw-toast__media">${image ? `<img src="${image}" alt="">` : ''}</div>
+      <div class="dw-toast__body">
+        <div class="dw-toast__title">${title}</div>
+        ${meta ? `<div class="dw-toast__meta">${meta}</div>` : ''}
+      </div>`;
+
+    root.appendChild(item);
+
+    // ENTRADA (suave): se activa en el siguiente frame
+    requestAnimationFrame(() => item.classList.add('is-visible'));
+
+    // Cierre manual con la X
+    const btnClose = item.querySelector('.dw-toast__close');
+    let timer = setTimeout(() => leave(item), 7000); // 7 segundos
+    btnClose.addEventListener('click', () => { clearTimeout(timer); leave(item); });
+
+    // Si el usuario pasa el mouse, pausamos el autocierre
+    item.addEventListener('mouseenter', () => clearTimeout(timer), { once:true });
+  }
+
+  window.DWToast = { show };
+})();
+</script>

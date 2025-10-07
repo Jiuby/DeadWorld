@@ -1,0 +1,105 @@
+/* static/css/recommendations.css
+   Recomendaciones — imágenes MÁS GRANDES en PC y 2x2 en móvil */
+
+/* ====== Tokens ====== */
+:root{
+  /* el contenedor general del sitio suele ser 1420px; aquí lo ampliamos */
+  --recs-container: min(1680px, 96vw);
+  --gap-recs: clamp(20px, 3vw, 36px);   /* menos separación = tarjetas más anchas */
+  --font-display:'Space Grotesk', ui-sans-serif, system-ui, Arial, sans-serif;
+}
+
+/* Solo para esta sección ampliamos el ancho */
+.recs .container{ width: var(--recs-container); margin-inline:auto; }
+
+.recs{
+  background:#fff; color:#111; text-transform:uppercase; letter-spacing:.12em;
+  padding: clamp(46px, 6vw, 80px) 0;
+}
+.recs__head{ text-align:center; margin-bottom: clamp(28px, 3.2vw, 40px); }
+.recs__title{
+  font-family:var(--font-display); font-weight:700; letter-spacing:.34em;
+  font-size:clamp(1rem, 2vw, 1.3rem);
+}
+.recs__divider{
+  display:block; width:42px; height:3px; background:#111; opacity:.2;
+  border-radius:2px; margin:12px auto 0;
+}
+
+/* ====== Grid (desktop/tablet) ====== */
+.recs__grid{
+  display:grid; grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: var(--gap-recs);
+}
+@media (max-width: 1100px){ .recs__grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 820px){ .recs__grid{ grid-template-columns: repeat(2, 1fr); } }
+
+/* ====== Card ====== */
+.pcard--recs{ text-align:center; }
+
+.pcard--recs .pcard__media{
+  position:relative; display:block;
+  aspect-ratio: 1 / 1;               /* marco cuadrado */
+  background:#fff;
+}
+
+/* --- IMÁGENES MUCHO MÁS GRANDES EN PC ---
+   Prácticamente sin padding en desktop; mantiene algo mínimo en pantallas
+   enormes para que no toque los bordes. */
+.pcard--recs .pcard__media img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain;
+  padding: clamp(0px, 0.6vw, 8px);   /* << menos padding = más grande */
+}
+
+/* Precio (desktop/tablet: aparece en hover) */
+.pcard--recs .pcard__price{
+  position:absolute; left:50%; bottom: clamp(10px, 2vw, 16px);
+  transform:translateX(-50%);
+  background:#111; color:#fff;
+  padding:10px 12px; border-radius:999px;
+  font-weight:700; letter-spacing:.18em;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  opacity:0; transition:opacity .25s ease, transform .25s ease;
+  white-space:nowrap;
+}
+.pcard--recs .pcard__media:hover .pcard__price{
+  opacity:1; transform:translateX(-50%) translateY(-4px);
+}
+
+/* Título bajo la imagen (ligeramente mayor para balancear la escala) */
+.pcard--recs .pcard__title{
+  font-weight:700; letter-spacing:.16em; font-size:.9rem;
+  margin-top:16px; margin-bottom:0;
+}
+.pcard--recs .pcard__title a{ color:#111; text-decoration:none; }
+.pcard--recs .pcard__title a:hover{ text-decoration:underline; }
+
+/* ====== MÓVIL: 2x2 en un cuadro, precio visible ====== */
+@media (max-width: 560px){
+  .recs{ padding: 34px 0; }
+
+  .recs__grid{
+    width:min(520px,94vw);
+    aspect-ratio:1/1;                 /* cuadro perfecto */
+    margin-inline:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:10px;
+  }
+
+  .pcard--recs{ min-height:0; display:flex; flex-direction:column; }
+  .pcard--recs .pcard__media{ flex:1 1 auto; height:100%; aspect-ratio:auto; }
+  .pcard--recs .pcard__media img{ padding: 3.5vw; } /* un poco de aire en móvil */
+
+  .pcard--recs .pcard__price{
+    opacity:1 !important;
+    transform:translateX(-50%) !important;
+    bottom: 8px;
+    font-size: .75rem; padding: 8px 10px;
+    min-width: 92px; max-width: 86%; box-sizing: border-box; text-align:center;
+  }
+
+  .pcard--recs .pcard__title{ display:none; }
+}
