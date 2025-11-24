@@ -2,275 +2,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ayuda — DeadWorld</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_title|default:"Ayuda" }} — DeadWorld</title>
 
+  <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos base del sitio -->
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
-  <link rel="stylesheet" href="{% static 'css/help.css' %}">
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <!-- Estilos propios de ayuda (lo armamos luego si querés) -->
+  <link rel="stylesheet" href="{% static 'css/help.css' %}">
 </head>
 
-<body class="page-help scrolled">
+<body class="page-help">
+
   {% include 'partials/header.html' %}
 
   <main class="help" aria-label="Centro de ayuda">
+    <div class="help__wrap container">
 
-    <!-- HERO -->
-    <header class="help-hero" aria-label="Cabecera de Ayuda">
-      <div class="noise" aria-hidden="true"></div>
-      <div class="hero-inner container">
-        <p class="hero-eyebrow">SOPORTE</p>
-        <h1 class="hero-title">A Y U D A</h1>
-        <p class="hero-sub">ENVÍOS · DEVOLUCIONES · TALLAS · PAGOS</p>
-      </div>
-      <div class="hero-grid" aria-hidden="true"></div>
-    </header>
+      <!-- Header editorial de la vista -->
+      <header class="help__head">
+        <p class="help__kicker">Centro de ayuda</p>
+        <h1 class="help__title">¿En qué te podemos ayudar?</h1>
 
-    <!-- SUBNAV (pegajosa) -->
-    <nav class="help-subnav" aria-label="Navegación de la ayuda">
-      <div class="container subnav-wrap">
-        <a class="chip" href="#envios"><span>01</span> ENVÍOS</a>
-        <a class="chip" href="#devoluciones"><span>02</span> DEVOLUCIONES</a>
-        <a class="chip" href="#tallas"><span>03</span> TALLAS</a>
-        <a class="chip" href="#pagos"><span>04</span> PAGOS</a>
-        <a class="chip" href="#pedidos"><span>05</span> SEGUIMIENTO</a>
-        <a class="chip" href="#contacto"><span>06</span> CONTACTO</a>
-      </div>
-    </nav>
+        <!-- Buscador simple (UI limpia) -->
+        <form class="help__search" role="search" aria-label="Buscar en ayuda">
+          <input
+            type="search"
+            name="q"
+            placeholder="Buscar pedidos, envíos, tallas, devoluciones…"
+            aria-label="Buscar ayuda"
+            autocomplete="off"
+          >
+          <button type="submit" aria-label="Buscar">Buscar</button>
+        </form>
+      </header>
 
-    <!-- ACCESOS RÁPIDOS (tarjetas) -->
-    <section class="quick container" aria-label="Accesos rápidos">
-      <a class="qcard animate-in" href="#envios">
-        <span class="qcard-icon">
-          <!-- truck.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 6h11v9H3zM14 8h4l3 3v4h-7zM5.5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-          </svg>
-        </span>
-        <span class="qcard-title">ENVÍOS</span>
-        <span class="qcard-arrow">→</span>
-      </a>
+      <!-- Grid de accesos rápidos -->
+      <section class="help__quick" aria-label="Accesos rápidos">
+        <article class="quickcard">
+          <h2>Envíos</h2>
+          <p>Costos, tiempos estimados y cobertura.</p>
+          <a href="#faq-envios" class="quickcard__link">Ver envíos →</a>
+        </article>
 
-      <a class="qcard animate-in" style="--d:90ms" href="#devoluciones">
-        <span class="qcard-icon">
-          <!-- rotate.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a9 9 0 1 1-6.219-8.59M21 3v6h-6"/>
-          </svg>
-        </span>
-        <span class="qcard-title">DEVOLUCIONES</span>
-        <span class="qcard-arrow">→</span>
-      </a>
+        <article class="quickcard">
+          <h2>Pedidos</h2>
+          <p>Estado, cambios y facturación.</p>
+          <a href="#faq-pedidos" class="quickcard__link">Ver pedidos →</a>
+        </article>
 
-      <a class="qcard animate-in" style="--d:180ms" href="#tallas">
-        <span class="qcard-icon">
-          <!-- ruler.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M16 2 22 8 8 22 2 16 16 2zM7 15l2 2M10 12l2 2M13 9l2 2"/>
-          </svg>
-        </span>
-        <span class="qcard-title">GUÍA DE TALLAS</span>
-        <span class="qcard-arrow">→</span>
-      </a>
+        <article class="quickcard">
+          <h2>Devoluciones</h2>
+          <p>Política, pasos y tiempos.</p>
+          <a href="#faq-devoluciones" class="quickcard__link">Ver devoluciones →</a>
+        </article>
 
-      <a class="qcard animate-in" style="--d:270ms" href="#pagos">
-        <span class="qcard-icon">
-          <!-- card.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"/>
-            <path d="M2 10h20M6 15h4"/>
-          </svg>
-        </span>
-        <span class="qcard-title">PAGOS</span>
-        <span class="qcard-arrow">→</span>
-      </a>
+        <article class="quickcard">
+          <h2>Tallas</h2>
+          <p>Guía y recomendaciones de fit.</p>
+          <a href="#faq-tallas" class="quickcard__link">Ver tallas →</a>
+        </article>
+      </section>
 
-      <a class="qcard animate-in" style="--d:360ms" href="#pedidos">
-        <span class="qcard-icon">
-          <!-- track.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M2 6h12v9H2zM14 8h4l3 3v4h-7zM6 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-          </svg>
-        </span>
-        <span class="qcard-title">SEGUIMIENTO</span>
-        <span class="qcard-arrow">→</span>
-      </a>
+      <!-- FAQs -->
+      <section class="help__faq" aria-label="Preguntas frecuentes">
 
-      <a class="qcard animate-in" style="--d:450ms" href="#contacto">
-        <span class="qcard-icon">
-          <!-- mail.svg inline -->
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
-            <path d="m22 6-10 7L2 6"/>
-          </svg>
-        </span>
-        <span class="qcard-title">CONTACTO</span>
-        <span class="qcard-arrow">→</span>
-      </a>
-    </section>
+        <!-- ENVÍOS -->
+        <div class="faqblock" id="faq-envios">
+          <h2 class="faqblock__title">Envíos</h2>
 
-    <!-- BLOQUE: ENVÍOS -->
-    <section id="envios" class="block">
-      <div class="container">
-        <header class="block-head animate-in">
-          <h2 class="block-title">ENVÍOS</h2>
-          <p class="block-sub">TIEMPOS • COSTOS • TRANSPORTADORAS</p>
-        </header>
-
-        <div class="faq">
-          <details class="faq-item animate-in">
-            <summary><span>TIEMPOS DE ENTREGA</span></summary>
-            <div class="faq-content">
-              Nacional (CO): 2–5 días hábiles. Internacional: 5–12 días hábiles (puede variar por aduanas).
+          <details class="faqitem">
+            <summary>¿Cuánto cuesta el envío?</summary>
+            <div class="faqitem__content">
+              <p>
+                El costo depende de tu ciudad y el peso del pedido. 
+                Se calcula en el checkout antes de pagar.
+              </p>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:90ms">
-            <summary><span>COSTOS DE ENVÍO</span></summary>
-            <div class="faq-content">
-              Se calculan al finalizar la compra según destino y peso del pedido.
+          <details class="faqitem">
+            <summary>¿Cuánto se demora mi pedido?</summary>
+            <div class="faqitem__content">
+              <p>
+                Normalmente entre 2 y 6 días hábiles en Colombia. 
+                En temporadas altas puede variar un poco.
+              </p>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:180ms">
-            <summary><span>TRANSPORTADORAS</span></summary>
-            <div class="faq-content">
-              Operadores confiables con número de guía para rastreo. Te enviamos el enlace por correo.
+          <details class="faqitem">
+            <summary>¿Hacen envíos internacionales?</summary>
+            <div class="faqitem__content">
+              <p>
+                Sí. Al momento de pagar vas a ver disponibilidad y costo según país.
+              </p>
             </div>
           </details>
         </div>
-      </div>
-    </section>
 
-    <!-- BLOQUE: DEVOLUCIONES -->
-    <section id="devoluciones" class="block">
-      <div class="container">
-        <header class="block-head animate-in">
-          <h2 class="block-title">DEVOLUCIONES</h2>
-          <p class="block-sub">POLÍTICAS • CAMBIOS • REEMBOLSOS</p>
-        </header>
+        <!-- PEDIDOS -->
+        <div class="faqblock" id="faq-pedidos">
+          <h2 class="faqblock__title">Pedidos</h2>
 
-        <div class="faq">
-          <details class="faq-item animate-in">
-            <summary><span>POLÍTICA DE DEVOLUCIONES</span></summary>
-            <div class="faq-content">
-              14 días desde la recepción. Producto sin uso, con etiquetas y empaque original.
+          <details class="faqitem">
+            <summary>¿Cómo reviso el estado de mi pedido?</summary>
+            <div class="faqitem__content">
+              <p>
+                Entrá a tu cuenta y mirá la sección <strong>Mis pedidos</strong>.
+                También te llega correo con actualizaciones.
+              </p>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:90ms">
-            <summary><span>CAMBIOS DE TALLA</span></summary>
-            <div class="faq-content">
-              Sujetos a disponibilidad. Escríbenos con tu número de pedido y te guiamos.
+          <details class="faqitem">
+            <summary>¿Puedo cambiar la dirección después de comprar?</summary>
+            <div class="faqitem__content">
+              <p>
+                Si el pedido no ha salido, sí. Escribinos rápido por WhatsApp o correo.
+              </p>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:180ms">
-            <summary><span>PROCESO DE REEMBOLSO</span></summary>
-            <div class="faq-content">
-              Tras verificar el retorno, reembolsamos por el mismo método de pago.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOQUE: TALLAS -->
-    <section id="tallas" class="block">
-      <div class="container">
-        <header class="block-head animate-in">
-          <h2 class="block-title">GUÍA DE TALLAS</h2>
-          <p class="block-sub">CÓMO MEDIR • FIT • CONSEJOS</p>
-        </header>
-
-        <div class="faq">
-          <details class="faq-item animate-in">
-            <summary><span>¿CÓMO ENCUENTRO MI TALLA?</span></summary>
-            <div class="faq-content">
-              Consulta la guía de tallas en cada producto. Si dudas entre dos, elige la mayor para fit oversize.
-            </div>
-          </details>
-
-          <details class="faq-item animate-in" style="--d:90ms">
-            <summary><span>AJUSTE (FIT)</span></summary>
-            <div class="faq-content">
-              Siluetas “boxy / oversize”. Revisa la ficha del producto para notas específicas de prenda.
+          <details class="faqitem">
+            <summary>No me llegó confirmación, ¿qué hago?</summary>
+            <div class="faqitem__content">
+              <p>
+                Revisá spam/promociones. Si no aparece, escribinos con tu nombre y correo.
+              </p>
             </div>
           </details>
         </div>
-      </div>
-    </section>
 
-    <!-- BLOQUE: PAGOS -->
-    <section id="pagos" class="block">
-      <div class="container">
-        <header class="block-head animate-in">
-          <h2 class="block-title">PAGOS</h2>
-          <p class="block-sub">MÉTODOS • SEGURIDAD</p>
-        </header>
+        <!-- DEVOLUCIONES -->
+        <div class="faqblock" id="faq-devoluciones">
+          <h2 class="faqblock__title">Devoluciones</h2>
 
-        <div class="faq">
-          <details class="faq-item animate-in">
-            <summary><span>MÉTODOS ACEPTADOS</span></summary>
-            <div class="faq-content">
-              Tarjetas débito/crédito, billeteras locales y pagos internacionales.
+          <details class="faqitem">
+            <summary>¿Puedo devolver un producto?</summary>
+            <div class="faqitem__content">
+              <p>
+                Sí, dentro de los 10 días hábiles después de recibirlo, 
+                siempre que esté sin uso y con etiquetas.
+              </p>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:90ms">
-            <summary><span>SEGURIDAD</span></summary>
-            <div class="faq-content">
-              Pasarela certificada con cifrado. No almacenamos datos de tarjeta.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOQUE: SEGUIMIENTO -->
-    <section id="pedidos" class="block">
-      <div class="container">
-        <header class="block-head animate-in">
-          <h2 class="block-title">SEGUIMIENTO</h2>
-          <p class="block-sub">RASTREO • NOTIFICACIONES</p>
-        </header>
-
-        <div class="faq">
-          <details class="faq-item animate-in">
-            <summary><span>¿CÓMO RASTREO MI PEDIDO?</span></summary>
-            <div class="faq-content">
-              Usa tu número de pedido y la guía de transporte. Te enviamos ambos por correo.
+          <details class="faqitem">
+            <summary>¿Cómo hago la devolución?</summary>
+            <div class="faqitem__content">
+              <ol>
+                <li>Escribinos con tu número de pedido.</li>
+                <li>Te mandamos instrucciones y dirección de retorno.</li>
+                <li>Cuando llegue, procesamos cambio o reembolso.</li>
+              </ol>
             </div>
           </details>
 
-          <details class="faq-item animate-in" style="--d:90ms">
-            <summary><span>NO RECIBÍ CONFIRMACIÓN</span></summary>
-            <div class="faq-content">
-              Revisa spam/promociones. Si no aparece, contáctanos con tu nombre y documento.
+          <details class="faqitem">
+            <summary>¿Cuánto tarda el reembolso?</summary>
+            <div class="faqitem__content">
+              <p>
+                Entre 5 y 12 días hábiles después de recibir el producto devuelto.
+              </p>
             </div>
           </details>
         </div>
-      </div>
-    </section>
 
-    <!-- CTA FINAL -->
-    <section id="contacto" class="cta-invert">
-      <div class="noise" aria-hidden="true"></div>
-      <div class="container cta-inner">
-        <div class="cta-copy animate-in">
-          <h3 class="cta-title">¿AÚN NECESITAS AYUDA?</h3>
-          <p class="cta-sub">Nuestro equipo responde de LUN–VIE · 9:00–18:00 (GMT-5).</p>
+        <!-- TALLAS -->
+        <div class="faqblock" id="faq-tallas">
+          <h2 class="faqblock__title">Tallas</h2>
+
+          <details class="faqitem">
+            <summary>¿Cómo sé cuál talla pedir?</summary>
+            <div class="faqitem__content">
+              <p>
+                Mirá la <a href="#" class="inline-link">Guía de tallas</a>
+                Si dudás, escribinos y te ayudamos con medidas.
+              </p>
+            </div>
+          </details>
+
+          <details class="faqitem">
+            <summary>¿Las prendas son oversize?</summary>
+            <div class="faqitem__content">
+              <p>
+                La mayoría sí. En la descripción del producto te decimos el fit exacto.
+              </p>
+            </div>
+          </details>
         </div>
-        <div class="cta-actions animate-in" style="--d:90ms">
-          <a class="btn btn-ghost" href="mailto:soporte@deadworld.store">soporte@deadworld.store</a>
-          <a class="btn btn-primary" href="#envios">VER PREGUNTAS FRECUENTES</a>
+
+      </section>
+
+      <!-- CTA contacto -->
+      <section class="help__contact" aria-label="Contacto de ayuda">
+        <div class="helpcta">
+          <h2>¿Seguís con dudas?</h2>
+          <p>Hablemos. Respondemos rápido por los canales oficiales.</p>
+
+          <div class="helpcta__actions">
+            <a href="#" class="helpcta__btn helpcta__btn--primary">Ir a contacto</a>
+            <a href="mailto:help@deadworld.com" class="helpcta__btn">help@deadworld.com</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+    </div>
   </main>
 
   {% include 'partials/footer.html' %}
+
+  <script>
+    // Header activo en esta vista
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.classList.add('scrolled');
+    });
+
+    // Si querés comportamiento de "solo una FAQ abierta"
+    (function(){
+      const items = document.querySelectorAll('.faqitem');
+      items.forEach((item)=>{
+        item.addEventListener('toggle', ()=>{
+          if(item.open){
+            items.forEach((other)=>{ if(other !== item) other.open = false; });
+          }
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>
